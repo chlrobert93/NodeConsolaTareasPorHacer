@@ -3,6 +3,9 @@ require('colors');
 
 const mostrarMenu = () => {
      
+
+    return new Promise( resolve => {
+    
     console.clear();
     console.log('========================='.magenta);
     console.log('  Selecione una opción   '.rainbow);
@@ -26,20 +29,26 @@ const mostrarMenu = () => {
     readline.question('Seleccione una opción:', (opt) => {
         // console.log( {opt} );
         readline.close();
-    })
+        resolve(opt);
+     })
+
+    });
+    
 }
 
 const pausa = () => {
+  return new Promise((resolve) => {
     const readline = require('readline').createInterface({
-        input: process.stdin,
-        output: process.stdout
+      input: process.stdin,
+      output: process.stdout,
     });
 
-    readline.question(`\nPresione ${ 'ENTER'.blue } para continuar\n` ,(opt) =>{
-        readline.close();
-
+    readline.question(`\nPresione ${'ENTER'.blue} para continuar\n`, (opt) => {
+      readline.close();
+      resolve();
     });
-}
+  });
+};
 
 module.exports = {
     mostrarMenu,
