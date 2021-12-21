@@ -1,6 +1,10 @@
 require('colors');
 
-const{ inquirerMenu, pausa } = require('./helpers/inquirer'); 
+const{ inquirerMenu,
+       pausa,
+       leerInput
+    } = require('./helpers/inquirer'); 
+const Tarea = require('./models/tarea');
 
 const Tareas = require('./models/tareas');
 /* const Tarea = require('./models/tarea'); */
@@ -11,23 +15,28 @@ const main = async() => {
 
     console.log('Hola Mundo');
 
-    //mostrarMenu();
 
     // pausa();
     let opt = '';
+    const tareas = new Tareas();
+
     
     do {
        opt = await inquirerMenu();
        console.log({ opt });
+       
+       switch (opt) {
+           case '1':
+               const desc = await  leerInput('Descripción:');
+               tareas.crearTarea( desc );
+           break;
 
-       /* const tarea = new Tarea('Comprar comida');
-       console.log(tarea);*/
-       /* const tareas = new Tareas();
-       const tarea = new Tarea('Comprar comida'); */
+           case '2':
+               console.log( tareas._listado );
+           break; 
+           
 
-       /* tareas._listado[tarea.id] = tarea;
-
-       console.log(tareas); */
+       }
 
        await pausa();
 
